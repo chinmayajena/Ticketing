@@ -1,0 +1,136 @@
+@(ticketform: Form[Ticket],message: String)
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Welcome to Ticketing System") {
+   
+ <style>
+ .form-control-feedback {
+position: relative;
+display: inline;
+top: 0;
+line-height: 14px;
+}
+</style>  
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Ticketing System</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="/tickets">Tickets</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav> 
+    
+    <fieldset>
+		<legend>Welcome To Ticket Logging</legend>   
+	<div class="col-lg-3">
+	</div>	
+	
+ <div class="well carousel-search hidden-sm">
+   <div class="row">
+   <div class="col-lg-3">
+    <select class="form-control tickstatus">
+    <option value="default">---Select Status---</option>
+    <option value="new">New</option>
+    <option value="open">Open</option>
+    <option value="closed">Closed</option>
+    </select>
+   </div>  
+   
+   <div class="col-lg-3">
+    <select class="form-control tickid">
+    <option value="default">---Select ticket Id---</option>
+	</select>
+   </div>
+   
+   
+   <div class="col-lg-3">
+        <div class="btn-group">
+            <button type="button" id="btnSearch" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+   </div>
+ </div> 
+ 
+ 
+  <form role="form" action="/saveticket" method="post" class="form-control-feedback" >
+    <div class="col-lg-6">
+      <div class="well well-sm"><strong><i class="glyphicon glyphicon-ok form-control-feedback"></i> Required Field</strong></div>
+ 
+      <div class="form-group">
+        <label for="InputName">Select Area</label>    
+
+
+ @select(ticketform("queryContext"),
+    
+     options = options(Seq("Installation","Training","Onsite Support","Offline Support","Repair")),
+            'class -> "form-control",
+            '_label -> null,
+            '_default -> Messages("---Select---"),
+            'showConstraints -> true,
+            '_help -> "",
+            '_id -> "context"
+            )
+          
+
+     </div> 
+      
+      <div class="form-group">
+        <label for="InputName">Customer Name</label>
+        <div class="input-group">
+          <input type="text" value="@ticketform("customerName").value" name="customerName"  class="form-control" name="InputName" id="InputName" placeholder="Enter Customer Name" required>
+          <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
+      </div>
+      <div class="form-group">
+        <label for="InputAssigned">Assigned Person</label>
+        <div class="input-group">
+          <input type="text" value="@ticketform("assignedTo").value" name="assignedTo"  class="form-control" id="InputAssigned" name="InputAssigned" placeholder="Enter Assigned Person Name" required  >
+          <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
+      </div>
+      <div class="form-group">
+        <label for="InputMessage">Comments</label>
+        <div class="input-group">
+          <textarea  value="@ticketform("comments").value" name="comments"  id="InputMessage" class="form-control" rows="5" required></textarea>
+          <span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
+      </div>
+     
+       <input type="hidden" value="@ticketform("ticketId").value" id="ticketId"  class="form-control" name="ticketId">
+  
+      <div class="form-group">
+        <label for="InputName">Select Status</label>    
+
+
+ @select(ticketform("status"),
+    
+     options = options(Seq("new","open","closed")),
+            'class -> "form-control",
+            '_label -> null,
+            '_default -> Messages("---Select---"),
+            'showConstraints -> true,
+            '_help -> "",
+            '_id -> "status"
+            )
+          
+
+     </div> 
+      
+      <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
+    </div>
+  </form>
+
+    </fieldset>
+    
+}
