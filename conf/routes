@@ -3,14 +3,14 @@
 # ~~~~
 
 # Home page
-
-GET	/			controllers.Application.login()
+GET     /                  controllers.Application.login()
+#GET     /login                  controllers.Application.login()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 
-GET     /login                  controllers.Application.login()
+
 POST    /login                  controllers.Application.authenticate()
 GET     /index                 controllers.Application.index()
 GET		/logticket			   controllers.TicketController.logTicktet()
@@ -18,3 +18,4 @@ POST	/saveticket				controllers.TicketController.saveTicktet()
 GET		/tickets				controllers.TicketController.tickets()
 GET		/loadtickets			controllers.TicketController.getTickets()
 GET		/showticket				controllers.TicketController.showTicket()
+GET		/success				controllers.Application.success()

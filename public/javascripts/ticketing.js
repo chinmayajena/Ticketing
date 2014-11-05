@@ -2,6 +2,8 @@ $(document).ready(function() {
 	
 	
 	$(".tickstatus").change(function (){
+		$(".tickid").find('option')
+	    .remove()
 		
 		if($(".tickstatus").val()!="default"){
 			var reqData = {status: $(".tickstatus").val() }
@@ -15,13 +17,14 @@ $(document).ready(function() {
 		         url  :"/loadtickets",
 		        
 		         success: function(data){
+		        	 $(".tickid").append("<option value=\"default\">---Select Ticket Id---</option>");
 		        	 $.each(data, function(index, row) {
 		        		 	
 			            	  $(".tickid").append("<option value="+row+">"+row+"</option>");
 			              });
 			             },
 		         error: function(jqXHR, textStatus, errorThrown){
-		                 alert("Error");
+		                 alert("Info: No records");
 		         		}
 			 	});
 		}
@@ -31,7 +34,12 @@ $(document).ready(function() {
 	$("#btnSearch").click(function(){
 		if($(".tickid").val()!="default"){
 			var reqData = {id:$(".tickid option:selected").text()};
-				
+			 if ($(".tickstatus option:selected").text() =="closed"){
+				 $("form input").attr("disabled",true);
+				 $("form select").attr("disabled",true);
+				 $("form textarea").attr("disabled",true);
+				 
+			 }
 			 $.ajax({
 		         async: false,
 		         type :  "GET",
@@ -72,7 +80,7 @@ $(document).ready(function() {
 			              });*/
 			             },
 		         error: function(jqXHR, textStatus, errorThrown){
-		                 alert("Error");
+		                 alert("Info: No Records");
 		         		}
 			 	});
 			

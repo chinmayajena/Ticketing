@@ -14,6 +14,8 @@ import play.mvc.Result;
 import views.html.login;
 import views.html.logticket;
 import views.html.tickets;
+import views.html.success;
+
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.TxRunnable;
@@ -78,7 +80,7 @@ public class TicketController extends Controller {
 			  }
 		});
 		 
-		 return TODO;
+		 return ok(success.render());
 		 
 	 }
 	 
